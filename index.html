@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Avatar Samples</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f2f2f2;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .media-list {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .media-item {
+      background: white;
+      padding: 15px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    }
+    .media-title {
+      font-size: 1.1em;
+      margin-bottom: 10px;
+      color: #444;
+    }
+    img, video {
+      width: 100%;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Avatar Samples</h1>
+  <div class="media-list" id="mediaList"></div>
+
+  <script>
+    const mediaFiles = [
+      'Bilal.mp4',
+      'Carlos.mp4',
+      'Jake.mp4',
+      'Williamson.jpg'
+    ];
+
+    const getMediaType = (filename) => {
+      const ext = filename.split('.').pop().toLowerCase();
+      if (['mp4', 'webm', 'ogg'].includes(ext)) return 'video';
+      if (['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'].includes(ext)) return 'image';
+      return null;
+    };
+
+    const mediaList = document.getElementById('mediaList');
+
+    mediaFiles.forEach(file => {
+      const item = document.createElement('div');
+      item.className = 'media-item';
+
+      const title = document.createElement('div');
+      title.className = 'media-title';
+      title.textContent = file;
+
+      const mediaType = getMediaType(file);
+      const src = `samples/${file}`;
+
+      if (mediaType === 'video') {
+        const video = document.createElement('video');
+        video.controls = true;
+        video.src = src;
+        item.appendChild(title);
+        item.appendChild(video);
+      } else if (mediaType === 'image') {
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = file;
+        item.appendChild(title);
+        item.appendChild(img);
+      }
+
+      mediaList.appendChild(item);
+    });
+  </script>
+</body>
+</html>
